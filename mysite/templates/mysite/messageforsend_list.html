@@ -1,0 +1,27 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+<h1>Сообщения</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Номер</th>
+            <th scope="col">Тема</th>
+            <th scope="col">Содержание</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+          <tr>
+              <td>{{ object.id }}</td>
+              <td>{{ object.title|slice:":100" }}</td>
+              <td>{{ object.body }}</td>
+              <td><a class="btn btn-outline-secondary" href='{% url "mysite:update_message" object.id %}'>Редактировать</a>
+              <a class="btn btn-outline-danger" href='{% url "mysite:delete_message" object.id %}'>Удалить</button></a></td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+<a class="p-2 btn btn-outline-primary" href='{% url "mysite:create_message" %}'>Добавить Рассылку</a>
+{% endblock %}

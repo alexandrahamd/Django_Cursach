@@ -1,0 +1,25 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+<h1>Список клиентов</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Номер Рассылки</th>
+            <th scope="col">Время рассылки</th>
+            <th scope="col">Ответ сервера</th>
+            <th scope="col">Статус</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+          <tr>
+              <td>{{ object.id_message_for_send }}</td>
+              <td>{{ object.data_time }}</td>
+              <td>{{ object.server_response }}</td>
+              <td>{{ object.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

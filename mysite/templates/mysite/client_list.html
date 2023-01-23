@@ -1,0 +1,24 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+<h1>Список клиентов</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Электронная почта</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+          <tr>
+              <td>{{ object.name }}</td>
+              <td>{{ object.email }}</td>
+              <td><a class="btn btn-outline-secondary" href='{% url "mysite:update_client" object.id %}'>Редактировать</a>
+              <a class="btn btn-outline-danger" href='{% url "mysite:delete_client" object.id %}'>Удалить</button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+<a class="p-2 btn btn-outline-primary" href='{% url "mysite:create_client" %}'>Добавить Клиента</a>
+{% endblock %}
