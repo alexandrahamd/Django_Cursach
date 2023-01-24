@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class MailingSetup(models.Model):
     SENT = "sent"
     NO_SENT = "not sent"
@@ -24,7 +25,6 @@ class MailingSetup(models.Model):
     period = models.CharField(choices=PERIOD, default='UTC', max_length=250, blank=True, null=True)
     sending_status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=CREATED)
 
-
     def __str__(self):
         return f'Время {self.time}, период {self.period}'
 
@@ -34,6 +34,7 @@ class MessageForSend(models.Model):
     body = models.CharField(max_length=250, blank=True, null=True)
     preview = models.CharField(max_length=200, blank=True, null=True)
     mailing = models.ForeignKey(MailingSetup, on_delete=models.CASCADE)
+    last_time_sending = models.DateTimeField(blank=True, null=True, auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -50,10 +51,9 @@ class Client(models.Model):
 
 class MailingAttempt(models.Model):
     id_message_for_send = models.ForeignKey(MessageForSend, on_delete=models.CASCADE)
-    data_time = models.CharField(max_length=150)
+    data_time = models.DateTimeField(blank=True, null=True)
     server_response = models.CharField(max_length=250, blank=True, null=True)
-    status = models.ForeignKey(MailingSetup, blank=True, null=True, on_delete=models.CASCADE)
-
+    status = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
         return self.id

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from mysite.models import MailingSetup, MessageForSend, Client, MailingAttempt
 
+
 @admin.register(MailingSetup)
 class MailingSetupAdmin(admin.ModelAdmin):
     list_display = ('time', 'period', 'sending_status')
@@ -14,6 +15,7 @@ class MessageForSendAdmin(admin.ModelAdmin):
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
+
 
 @admin.register(MailingAttempt)
 class MailingAttemptAdmin(admin.ModelAdmin):
