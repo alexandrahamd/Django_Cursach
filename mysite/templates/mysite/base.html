@@ -16,6 +16,13 @@
         <a class="p-2 btn btn-outline-primary" href='{% url "mysite:messageforsend_list" %}'>Сообщения</a>
         <a class="p-2 btn btn-outline-primary" href='{% url "mysite:client_list" %}'>Клиенты</a>
         <a class="p-2 btn btn-outline-primary" href='{% url "mysite:attempt_list" %}'>Отчет</a>
+        {% if user.is_authenticated %}
+        <a class="p-2 btn btn-outline-primary" href='{% url "users:profile" %}'>Профиль</a>
+        <a class="p-2 btn btn-outline-primary" href='{% url "users:logout" %}'>Выход</a>
+        {% else %}
+        <a class="p-2 btn btn-outline-primary" href='{% url "users:login" %}'>Вход</a>
+        <a class="p-2 btn btn-outline-primary" href='{% url "users:register" %}'>Регистрация</a>
+        {% endif %}
     </nav>
 </div>
 
