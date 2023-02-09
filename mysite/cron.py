@@ -1,18 +1,17 @@
-from datetime import datetime
 import datetime
 from django.conf import settings
 from django.core.mail import send_mail
+from django.http import request
 from django.utils import timezone
 from mysite.models import MailingAttempt, MessageForSend, Client
-
 
 time_now = datetime.datetime.now()
 def send():
     # формируем список клиентов
     emails = []
-    for item in Client.objects.all():
+    for item in Client.objects.filter(user_id=request.user):
         emails.append(item.email)
-    for item in MessageForSend.objects.all():
+    for item in MessageForSend.objects.filter(user_id=request.user):
         time_model = item.mailing.time
         title = item.title
         body = item.body

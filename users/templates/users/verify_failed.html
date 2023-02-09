@@ -1,0 +1,15 @@
+{% extends 'mysite/base.html' %}
+
+{% block content %}
+
+    <p>
+        Верификация не удалась.
+    </p>
+    <a href="{% url 'mysite:messageforsend_list %}" class="btn btn-link">
+        На главную
+    </a> или
+    <a href="{% url 'users:register' %}" class="btn btn-link">
+        Попробовать еще раз
+    </a>
+
+{% endblock %}

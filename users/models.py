@@ -4,7 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
     email = models.EmailField(verbose_name='Почта', unique=True)
-    username = models.CharField(max_length=200, blank=True, null=True, default=email)
+    username = models.CharField(max_length=220, verbose_name='имя', blank=True, null=True)
     verify_token = models.CharField(max_length=30, verbose_name='Токен', blank=True, null=True)
     verify_token_expired = models.DateTimeField(blank=True, null=True, verbose_name='Дата истечения токена')
     new_password = models.CharField(verbose_name="новый пароль", max_length=128)
@@ -19,5 +19,11 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+        permissions = [
+            (
+                "set_status",
+                'Изменить статус'
+            )
+        ]
 
 

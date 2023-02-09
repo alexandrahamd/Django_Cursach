@@ -1,5 +1,10 @@
 {% extends 'mysite/base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
+    <h6>Колличество всех рассылок :{{ count_all }}</h6>
+    <h6>Колличество ваших рассылок :{{ count_uniq_mail }}</h6>
+    <h6>Колличество всех активных рассылок :{{ count_active }}</h6>
+    <h6>Колличество клиентов на сайте :{{ count_uniq_client }}</h6>
 <h1>Сообщения</h1>
     <table class="table">
         <thead>
@@ -17,11 +22,60 @@
               <td>{{ object.title|slice:":100" }}</td>
               <td>{{ object.body }}</td>
               <td><a class="btn btn-outline-secondary" href='{% url "mysite:update_message" object.id %}'>Редактировать</a>
-              <a class="btn btn-outline-danger" href='{% url "mysite:delete_message" object.id %}'>Удалить</button></a></td>
+              <a class="btn btn-outline-danger" href='{% url "mysite:delete_message" object.id %}'>Удалить</a></td>
 
           </tr>
           {% endfor %}
         </tbody>
     </table>
-<a class="p-2 btn btn-outline-primary" href='{% url "mysite:create_message" %}'>Добавить Рассылку</a>
+        <br>
+    <br>
+    <a class="p-2 btn btn-outline-primary" href='{% url "mysite:create_message" %}'>Добавить Рассылку</a>
+    <br>
+{% endif %}
+    <br>
+    <h1>Статьи</h1>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Тема</th>
+            <th scope="col">Содержание</th>
+            <th scope="col">Просмотры</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for artical in blog %}
+          <tr>
+              <td><a class="btn-outline-success" href="{% url 'blog:detail' artical.id %}">{{ artical.title }}</a></td>
+              <td>{{ artical.content|slice:":200" }}</td>
+              <td>{{ artical.views }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+    {% for artical in blog %}
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">{{ artical.title }}</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>{{ artical.content|slice:":200" }}</li>
+                        <li>Колличество просмотров: {{ artical.views }}</li>
+                    </ul>
+{#                    <button type="button" class="w-100 btn btn-lg btn-outline-primary"><a class="btn-outline-success" href="{% url 'blog:detail' artical.id %}">Читать</a></button>#}
+                    <a class="btn-outline-success" href="{% url 'blog:detail' artical.id %}">
+                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Читать</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

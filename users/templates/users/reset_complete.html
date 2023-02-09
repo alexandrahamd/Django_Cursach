@@ -1,0 +1,12 @@
+{% extends 'mysite/base.html' %}
+
+{% block content %}
+
+    <p>
+        Новый пароль сформирован
+    </p>
+    <a href="{% url 'mysite:messageforsend_list' %}" class="btn btn-link">
+        На главную
+    </a>
+
+{% endblock %}
